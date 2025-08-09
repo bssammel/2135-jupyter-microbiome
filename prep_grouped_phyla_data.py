@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the dataset
-df = pd.read_csv("all_phyla_crop_data.csv")
+df = pd.read_csv("/data/all_phyla_crop_data.csv")
 
 # Drop rows missing key taxonomic levels
 df = df.dropna(subset=["Kingdom", "Phylum", "Crop"])
