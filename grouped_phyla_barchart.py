@@ -48,7 +48,7 @@ ax = grouped_rel[available_groups].plot(
     kind="bar", stacked=True, figsize=(12, 6)
 )
 
-plt.title("Relative Abundance of Microbial Groups by Crop")
+plt.title("Relative Abundance of Microbial Groups by Crop", fontsize=18)
 plt.ylabel("Relative Abundance", fontsize=14)
 plt.xlabel("Crop", fontsize=14)
 plt.xticks(rotation=0)
