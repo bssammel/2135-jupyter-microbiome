@@ -2,10 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the dataset
-df = pd.read_csv("/data/all_phyla_crop_data.csv")
+df = pd.read_csv("./data/all_phyla_crop_data.csv")
 
 # Drop rows missing key taxonomic levels
 df = df.dropna(subset=["Kingdom", "Phylum", "Crop"])
+
+# Title-ize the crops for axis label use
+df["Crop"] = df["Crop"].str.title()
 
 # Count occurrences of each Phylum within each Crop
 phylum_counts = df.groupby(["Crop", "Phylum"]).size().unstack(fill_value=0)
@@ -41,13 +44,20 @@ expected_groups = top_phyla.tolist() + ["Other Bacteria", "Fungi", "Archaea"]
 available_groups = [group for group in expected_groups if group in grouped_rel.columns]
 
 # Plot
-grouped_rel[available_groups].plot(
+ax = grouped_rel[available_groups].plot(
     kind="bar", stacked=True, figsize=(12, 6)
 )
 
 plt.title("Relative Abundance of Microbial Groups by Crop")
-plt.ylabel("Relative Abundance")
-plt.xlabel("Crop")
+plt.ylabel("Relative Abundance", fontsize=14)
+plt.xlabel("Crop", fontsize=14)
+plt.xticks(rotation=0)
 plt.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
 plt.tight_layout()
+
+# Save the figure BEFORE plt.show()
+fig = ax.get_figure()
+fig.savefig('./created_content/phyla_bar_chart.png', dpi=300)  # You can specify dpi for quality
+
+
 plt.show()
